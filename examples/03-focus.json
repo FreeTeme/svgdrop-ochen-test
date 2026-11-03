@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "title": "Фокус на работе",
+  "format": "landscape",
+  "detail": "L",
+  "layout": "headline",
+  "paletteIndex": 2,
+  "palette": {
+    "name": "Мята",
+    "background": [
+      "#BEEBEB",
+      "#80DADA",
+      "#5ABEBE"
+    ],
+    "object": [
+      "#FFD4F2",
+      "#6D7BFC",
+      "#B6C6FE"
+    ],
+    "ink": "#181817",
+    "paper": "#FFFFFF"
+  },
+  "texture": true,
+  "transparent": false,
+  "backgroundObjects": true,
+  "variation": 0,
+  "layers": [
+    {
+      "id": "layer-5",
+      "key": "phone",
+      "variant": "mono",
+      "x": 1008,
+      "y": 485.1,
+      "w": 264,
+      "h": 153.01360325069908,
+      "rotation": 0,
+      "visible": true
+    },
+    {
+      "id": "layer-4",
+      "key": "book",
+      "variant": "mono",
+      "x": 216,
+      "y": 138.6,
+      "w": 264,
+      "h": 178.32477654997896,
+      "rotation": 0,
+      "visible": true
+    },
+    {
+      "id": "layer-1",
+      "key": "headphones",
+      "variant": "main",
+      "x": 873.6000000000001,
+      "y": 382.40999999999997,
+      "w": 468,
+      "h": 364.397345588896,
+      "rotation": 0,
+      "visible": true
+    },
+    {
+      "id": "layer-2",
+      "key": "lamp",
+      "variant": "main",
+      "x": 1040.8799999999999,
+      "y": 338.30999999999995,
+      "w": 318.24000000000007,
+      "h": 379.820362646877,
+      "rotation": 0,
+      "visible": true
+    },
+    {
+      "id": "layer-3",
+      "key": "folder",
+      "variant": "main",
+      "x": 1008.0000000000001,
+      "y": 214.82999999999998,
+      "w": 234,
+      "h": 124.21920180877666,
+      "rotation": 0,
+      "visible": true
+    }
+  ]
+}

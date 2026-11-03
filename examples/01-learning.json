@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "title": "Знания открывают возможности",
+  "format": "landscape",
+  "detail": "L",
+  "layout": "balanced",
+  "paletteIndex": 0,
+  "palette": {
+    "name": "Лаванда",
+    "background": [
+      "#D7CDF5",
+      "#AA9BF0",
+      "#7864D7"
+    ],
+    "object": [
+      "#F9ECB0",
+      "#F9A3AA",
+      "#FFE3E1"
+    ],
+    "ink": "#181817",
+    "paper": "#FFFFFF"
+  },
+  "texture": true,
+  "transparent": false,
+  "backgroundObjects": true,
+  "variation": 0,
+  "layers": [
+    {
+      "id": "layer-5",
+      "key": "headphones",
+      "variant": "mono",
+      "x": 1008,
+      "y": 485.1,
+      "w": 264,
+      "h": 205.558933506637,
+      "rotation": 0,
+      "visible": true
+    },
+    {
+      "id": "layer-4",
+      "key": "coin",
+      "variant": "mono",
+      "x": 216,
+      "y": 138.6,
+      "w": 264,
+      "h": 173.58945234709134,
+      "rotation": 0,
+      "visible": true
+    },
+    {
+      "id": "layer-1",
+      "key": "book",
+      "variant": "main",
+      "x": 504,
+      "y": 384.3,
+      "w": 596.9118864415871,
+      "h": 403.20000000000005,
+      "rotation": 0,
+      "visible": true
+    },
+    {
+      "id": "layer-2",
+      "key": "phone",
+      "variant": "main",
+      "x": 924,
+      "y": 321.3,
+      "w": 408.00000000000006,
+      "h": 236.4781297683377,
+      "rotation": 0,
+      "visible": true
+    },
+    {
+      "id": "layer-3",
+      "key": "puzzle",
+      "variant": "main",
+      "x": 840,
+      "y": 144.9,
+      "w": 300,
+      "h": 172.85345620798716,
+      "rotation": 0,
+      "visible": true
+    }
+  ]
+}
