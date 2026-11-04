@@ -1,0 +1,19 @@
+const controls=[];
+let opened=null;
+export function syncSelects(){for(const c of controls){c.trigger.querySelector('.select-value').textContent=c.select.selectedOptions[0]?.textContent;for(const [i,option] of [...c.list.children].entries()){const on=c.select.options[i].selected;option.setAttribute('aria-selected',String(on));option.tabIndex=on?0:-1}}}
+function close(restore=false){if(!opened)return;const c=opened;opened=null;c.list.hidePopover();c.trigger.setAttribute('aria-expanded','false');if(restore)c.trigger.focus({preventScroll:true})}
+function open(c,edge){close();opened=c;c.trigger.setAttribute('aria-expanded','true');c.list.showPopover();const r=c.trigger.getBoundingClientRect(),space=innerHeight-r.bottom-12,above=space<190&&r.top>space;const height=Math.min(280,above?r.top-16:space);c.list.style.cssText=`width:${r.width}px;left:${Math.max(8,Math.min(innerWidth-r.width-8,r.left))}px;max-height:${height}px;top:${above?'auto':r.bottom+7+'px'};bottom:${above?innerHeight-r.top+7+'px':'auto'}`;const items=[...c.list.children];(edge==='first'?items[0]:edge==='last'?items.at(-1):items[c.select.selectedIndex]).focus({preventScroll:true})}
+export function enhanceSelects(){
+ for(const select of document.querySelectorAll('select:not([hidden])')){
+  const label=document.querySelector(`label[for="${select.id}"]`);if(label)label.id=`${select.id}-label`;
+  const wrap=document.createElement('div');wrap.className='select-wrap';select.before(wrap);wrap.append(select);select.hidden=true;
+  const trigger=document.createElement('button');trigger.type='button';trigger.id=`${select.id}-trigger`;trigger.className='select-trigger';trigger.setAttribute('role','combobox');trigger.setAttribute('aria-haspopup','listbox');trigger.setAttribute('aria-expanded','false');trigger.setAttribute('aria-labelledby',`${label?.id} ${select.id}-value`);trigger.innerHTML=`<span class="select-value" id="${select.id}-value"></span><span class="select-chevron" aria-hidden="true"></span>`;
+  const list=document.createElement('div');list.id=`${select.id}-options`;list.className='select-options';list.setAttribute('popover','manual');list.setAttribute('role','listbox');list.setAttribute('aria-labelledby',label?.id);trigger.setAttribute('aria-controls',list.id);wrap.append(trigger,list);
+  const c={select,trigger,list};controls.push(c);
+  for(const option of select.options){const b=document.createElement('button');b.type='button';b.setAttribute('role','option');b.textContent=option.textContent;b.dataset.value=option.value;b.onclick=()=>{select.value=option.value;close(true);select.dispatchEvent(new Event('change',{bubbles:true}));syncSelects()};list.append(b)}
+  trigger.onclick=()=>opened===c?close(true):open(c);trigger.onkeydown=e=>{if(['ArrowDown','ArrowUp','Home','End'].includes(e.key)){e.preventDefault();open(c,e.key==='Home'?'first':e.key==='End'?'last':undefined)}};
+  list.onkeydown=e=>{const items=[...list.children],i=items.indexOf(document.activeElement);let next=i;if(e.key==='ArrowDown')next=(i+1)%items.length;else if(e.key==='ArrowUp')next=(i-1+items.length)%items.length;else if(e.key==='Home')next=0;else if(e.key==='End')next=items.length-1;else if(e.key==='Escape'){e.preventDefault();e.stopPropagation();close(true);return}else if(e.key==='Tab'){close();trigger.focus({preventScroll:true});return}else if(e.key.length===1&&![' '].includes(e.key)){const match=items.findIndex(b=>b.textContent.toLowerCase().startsWith(e.key.toLowerCase()));if(match>=0)next=match;else return}else return;e.preventDefault();items[next].focus()};
+  select.addEventListener('change',syncSelects);if(label)label.onclick=()=>trigger.focus();
+ }
+ syncSelects();document.addEventListener('pointerdown',e=>{if(opened&&!opened.list.contains(e.target)&&!opened.trigger.contains(e.target))close()});document.addEventListener('scroll',e=>{if(opened&&!opened.list.contains(e.target))close()},{capture:true});window.addEventListener('resize',()=>close());
+}

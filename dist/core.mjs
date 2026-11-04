@@ -33,7 +33,8 @@ export function recolor(svg,p){
  return svg.replace(/#[0-9a-f]{6}\b|\bwhite\b|\bblack\b/gi,c=>{const k=from.findIndex(x=>x.toLowerCase()===(c==='white'?'#ffffff':c==='black'?'#181817':c.toLowerCase()));return k<0?c:to[k]});
 }
 export function compose(keys,manifest,{format='landscape',detail='L',layout='balanced',backgroundObjects=true,variation=0}={}){
- const [W,H]=formats[format]; const m=keys.length?keys:['book'];const n=m.length;let uid=1;
+ if(!keys.length)return [];
+ const [W,H]=formats[format]; const m=keys;const n=m.length;let uid=1;
  const proportions=n===1?[[.52,.55,.62]]:n===2?[[.38,.60,.51],[.73,.42,.38]]:n===3?[[.42,.61,.50],[.77,.51,.34],[.70,.23,.25]]:[[.37,.60,.45],[.73,.58,.34],[.71,.22,.25],[.30,.22,.24]];
  const layers=m.map((key,i)=>{
   const a=manifest.find(x=>x.key===key&&x.size===detail&&x.variant==='main');let [cx,cy,size]=proportions[i%4];

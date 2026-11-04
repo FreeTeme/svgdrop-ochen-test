@@ -318,3 +318,51 @@ dialog p { line-height: 1.8; }
   .toast { bottom: 18px; width: calc(100% - 32px); font-size: 12px; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }
+
+/* A fixed desktop shell keeps long catalogs inside their own panel. */
+@media (min-width: 1101px) {
+  html, body { height: 100%; overflow: hidden; }
+  .app { min-height: 0; height: calc(100dvh - 74px); }
+  .workspace { overflow-y: auto; overscroll-behavior: contain; }
+}
+.library { scrollbar-gutter: stable; }
+.manual-actions { margin: -4px 0 15px; }
+.manual-actions .text-button { padding-left: 0; }
+.choices button { cursor: grab; min-height: 108px; }
+.choices button:active { cursor: grabbing; }
+.choices button .add { opacity: 1; }
+.dragging-object .artboard { outline: 2px dashed var(--accent); outline-offset: 5px; }
+.artboard.drop-active { outline-style: solid; box-shadow: 0 0 0 8px var(--tint), var(--shadow); }
+.selection-box { z-index: 2; }
+.selection-box::before, .selection-box::after { display: none; }
+.resize-handle, .rotate-handle { position: absolute; pointer-events: auto; padding: 0; width: 28px; height: 28px; min-height: 28px; border: 0; background: transparent; border-radius: 3px; touch-action: none; }
+.resize-handle::after { content: ''; position: absolute; width: 10px; height: 10px; border: 1.5px solid var(--focus); border-radius: 2px; background: var(--panel); }
+.resize-handle:hover, .resize-handle:active { background: transparent; transform: none; }
+.resize-handle:hover::after { background: var(--tint); }
+.resize-handle.nw { left: -14px; top: -14px; cursor: nwse-resize; }
+.resize-handle.ne { right: -14px; top: -14px; cursor: nesw-resize; }
+.resize-handle.sw { left: -14px; bottom: -14px; cursor: nesw-resize; }
+.resize-handle.se { right: -14px; bottom: -14px; cursor: nwse-resize; }
+.rotate-handle { left: calc(50% - 15px); top: -43px; width: 30px; height: 30px; background: var(--panel); border: 1px solid var(--focus); border-radius: 50%; color: var(--accent); cursor: grab; box-shadow: var(--panel-shadow); }
+.rotate-handle::after { content: ''; position: absolute; top: 29px; left: 14px; width: 1px; height: 13px; background: var(--focus); pointer-events: none; }
+.rotate-handle .icon { width: 15px; height: 15px; }
+.object-toolbar { position: absolute; display: flex; padding: 3px; gap: 2px; border: 1px solid var(--line-strong); border-radius: 11px; background: var(--panel); box-shadow: var(--shadow); transform: translateX(-50%); z-index: 3; }
+.object-toolbar .icon-button { width: 38px; min-height: 38px; border: 0; }
+.select-trigger { width: 100%; justify-content: space-between; min-height: 43px; text-align: left; padding: 10px 12px; font-size: var(--text-sm); font-weight: 500; }
+.select-trigger[aria-expanded=true] { border-color: var(--accent); box-shadow: 0 0 0 3px var(--tint); }
+.select-value { min-width: 0; }
+.select-chevron { width: 7px; height: 7px; border: solid var(--muted); border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); margin: -4px 3px 0 12px; flex-shrink: 0; }
+.select-options { position: fixed; inset: auto; margin: 0; padding: 5px; border: 1px solid var(--line-strong); border-radius: 12px; background: var(--panel); color: var(--text); box-shadow: 0 12px 32px #30214820, 0 2px 6px #3021480a; overflow-y: auto; overscroll-behavior: contain; }
+.select-options button { width: 100%; justify-content: flex-start; position: relative; padding: 11px 30px 11px 12px; min-height: 42px; border: 0; border-radius: 7px; font-weight: 500; font-size: var(--text-sm); text-align: left; }
+.select-options button[aria-selected=true] { color: var(--accent); background: var(--tint); font-weight: 650; }
+.select-options button[aria-selected=true]::after { content: ''; position: absolute; right: 13px; width: 6px; height: 10px; border: solid currentColor; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.select-options button:focus-visible { outline-offset: -2px; background: var(--tint-soft); }
+@media (max-width: 580px) {
+  .select-trigger, .select-options button { font-size: 16px; }
+  .resize-handle { width: 32px; height: 32px; }
+  .resize-handle.nw { left: -16px; top: -16px; }
+  .resize-handle.ne { right: -16px; top: -16px; }
+  .resize-handle.sw { left: -16px; bottom: -16px; }
+  .resize-handle.se { right: -16px; bottom: -16px; }
+  .object-toolbar .icon-button { width: 42px; min-height: 42px; }
+}
