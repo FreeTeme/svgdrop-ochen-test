@@ -230,10 +230,16 @@ dialog p { line-height: 1.8; }
   .panel, .workspace { min-height: 0; }
   .panel { max-width: 680px; margin: auto; overflow: visible; }
   body[data-mobile-panel=canvas] .library, body[data-mobile-panel=canvas] .inspector, body[data-mobile-panel=library] .workspace, body[data-mobile-panel=library] .inspector, body[data-mobile-panel=settings] .workspace, body[data-mobile-panel=settings] .library { display: none; }
-  .workspace { grid-template-rows: auto minmax(240px, min(50dvh, 480px)) auto auto; }
+  .workspace { grid-template-rows: repeat(4, auto); align-content: start; }
   .workspace-top { margin-bottom: 14px; }
-  .canvas-stage { padding: 18px 8px; }
-  .canvas-foot { margin-bottom: 15px; }
+  .canvas-stage { padding: 14px 8px; }
+  .canvas-foot { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 5px 10px; min-height: 34px; margin: 2px 0 12px; }
+  .canvas-instruction { grid-column: 1; }
+  #layer-count { grid-column: 2; margin-left: 0; }
+  #edit-selected { grid-column: 1; justify-self: start; }
+  .canvas-foot .object-toolbar { grid-column: 2; position: static; transform: none; margin: 0; padding: 2px; box-shadow: none; border-radius: 9px; }
+  .canvas-foot .object-toolbar .icon-button { width: 40px; min-height: 40px; padding: 10px; }
+  .canvas-foot .object-toolbar .icon { width: 17px; height: 17px; }
   .library { padding: 25px; }
   .panel-heading p br { display: none; }
   .asset-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -260,21 +266,21 @@ dialog p { line-height: 1.8; }
   .responsive-tools button { gap: 6px; min-height: 38px; font-size: 12px; padding: 7px; }
   .responsive-tools .icon { width: 16px; height: 16px; }
   .app { padding: 11px; }
-  .workspace { padding: 16px 12px 13px; border-radius: 14px; grid-template-rows: auto minmax(200px, min(36dvh, 340px)) auto auto; }
+  .workspace { padding: 16px 12px 13px; border-radius: 14px; grid-template-rows: repeat(4, auto); }
   .workspace-symbol { display: none; }
   .workspace-top { gap: 7px; }
-  .workspace-top h2 { font-size: 13px; }
-  .workspace-top p { font-size: 10px; }
+  .workspace-top h2 { font-size: 14px; }
+  .workspace-top p { font-size: 11px; }
   .history { gap: 6px; }
   .history-group { border-radius: 8px; }
   .history .icon-button { width: 28px; min-height: 30px; }
   .variation-button { width: 34px; min-height: 35px; padding: 8px; }
   .variation-button > span:not(.icon) { display: none; }
-  .canvas-stage { padding: 16px 0; }
-  .canvas-foot { flex-wrap: wrap; gap: 5px 8px; min-height: 44px; margin: 4px 0 12px; font-size: 10px; }
+  .canvas-stage { padding: 12px 0; }
+  .canvas-foot { gap: 4px 8px; min-height: 32px; margin: 2px 0 10px; font-size: 11px; }
   .canvas-instruction { flex: 1; }
   .canvas-instruction .icon { display: none; }
-  .canvas-foot .text-button { min-height: 30px; padding: 4px 0; font-size: 11px; }
+  .canvas-foot .text-button { min-height: 40px; padding: 5px 0; font-size: 12px; }
   #layer-count { font-size: 10px; }
   .canvas-foot .icon-button { width: 26px; min-height: 28px; }
   .examples { padding-top: 14px; }

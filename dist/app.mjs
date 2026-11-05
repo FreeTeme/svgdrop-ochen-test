@@ -47,7 +47,23 @@ function deselect(){selected=null;renderLayers();renderSettings();renderSelectio
 function renderPalettes(){
  const focused=document.activeElement?.dataset.focusKey;$('palettes').replaceChildren();[...palettes,...customPalettes].forEach((p,i)=>{const b=document.createElement('button');b.className='palette';b.dataset.focusKey=`palette-${i}`;b.setAttribute('aria-label',`Палитра ${p.name}`);b.setAttribute('aria-pressed',String(i===state.paletteIndex));const sw=document.createElement('span');sw.className='palette-colors';for(const c of [p.background[0],p.background[2],p.object[0],p.object[1]]){const el=document.createElement('i');el.style.backgroundColor=c;sw.append(el)}const n=document.createElement('span');n.className='palette-name';n.textContent=p.name;if(i===state.paletteIndex)n.insertAdjacentHTML('afterbegin',icon('check'));b.append(sw,n);b.onclick=()=>change(()=>{state.paletteIndex=i;state.palette=structuredClone(p)});$('palettes').append(b)});preserveFocus(focused)
 }
-function fitCanvas(){const [W,H]=formats[state.format];const stage=$('artboard').parentElement;if(!stage.clientWidth||!stage.clientHeight)return;const css=getComputedStyle(stage);const sw=stage.clientWidth-parseFloat(css.paddingLeft)-parseFloat(css.paddingRight);const sh=stage.clientHeight-parseFloat(css.paddingTop)-parseFloat(css.paddingBottom);const ratio=Math.max(.01,Math.min(sw/W,sh/H));$('artboard').style.width=W*ratio+'px';$('artboard').style.height=H*ratio+'px';renderSelection()}
+function fitCanvas(){
+ const [W,H]=formats[state.format],board=$('artboard'),stage=board.parentElement;
+ if(!stage.clientWidth)return;
+ const compact=matchMedia('(max-width:1100px)').matches,css=getComputedStyle(stage);
+ const px=parseFloat(css.paddingLeft)+parseFloat(css.paddingRight),py=parseFloat(css.paddingTop)+parseFloat(css.paddingBottom);
+ const sw=Math.max(1,stage.clientWidth-px);
+ // Compact screens follow the artwork's aspect ratio; tall formats remain bounded.
+ // Desktop keeps its available stage height and independent side panels.
+ if(!compact)stage.style.removeProperty('height');
+ const sh=compact?Math.max(220,Math.min(600,window.innerHeight*.60)):Math.max(1,stage.clientHeight-py);
+ const ratio=Math.max(.01,Math.min(sw/W,sh/H));
+ board.style.width=W*ratio+'px';board.style.height=H*ratio+'px';
+ if(compact)stage.style.height=H*ratio+py+'px';
+ const toolbar=$('object-toolbar'),host=compact?$('canvas-foot'):board;
+ if(toolbar.parentElement!==host)host.append(toolbar);
+ renderSelection();
+}
 function renderCanvas(){
  const focusLayer=document.activeElement?.dataset.layer;const doc=new DOMParser().parseFromString(exportSvg(state,assets,manifest),'image/svg+xml');const svg=doc.documentElement;$('canvas').setAttribute('viewBox',svg.getAttribute('viewBox'));$('canvas').replaceChildren(...[...svg.childNodes].map(n=>document.importNode(n,true)));
  for(const l of state.layers.filter(l=>l.visible)){const node=$('canvas').querySelector(`[id="${l.id}"]`);if(node){node.dataset.layer=l.id;node.setAttribute('tabindex','0');node.setAttribute('role','button');node.setAttribute('aria-label',`${getAsset(l).name}, выбрать слой`);node.setAttribute('aria-pressed',String(selected===l.id))}}
