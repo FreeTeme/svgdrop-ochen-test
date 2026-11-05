@@ -4,6 +4,8 @@
 
 Рабочая версия: https://svgdrop-ochen-test.vercel.app
 
+Материалы к сдаче: [короткая демонстрация](https://svgdrop-ochen-test.vercel.app/submission/03-demo.mp4), [описание архитектуры и AI-инструментов](https://svgdrop-ochen-test.vercel.app/submission/02-solution.pdf), [три SVG-примера с JSON-проектами](examples/).
+
 ## Публикация на Vercel
 
 Проект `svgdrop-ochen-test` опубликован через локальную авторизацию аккаунта `freeteme`, в workspace `egors-projects-36e97d8f`. `vercel.json` задаёт статическую публикацию папки `dist` без установки зависимостей и сборки. Локальная связь с проектом хранится в игнорируемой папке `.vercel/`.

@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "title": "Финансовый рост",
+  "format": "landscape",
+  "detail": "L",
+  "layout": "offset",
+  "paletteIndex": 1,
+  "palette": {
+    "name": "Персик",
+    "background": [
+      "#FDD7B9",
+      "#FAC896",
+      "#D27532"
+    ],
+    "object": [
+      "#F9ECB0",
+      "#80DADA",
+      "#BEEBEB"
+    ],
+    "ink": "#181817",
+    "paper": "#FFFFFF"
+  },
+  "texture": true,
+  "transparent": false,
+  "backgroundObjects": true,
+  "variation": 0,
+  "layers": [
+    {
+      "id": "layer-5",
+      "key": "phone",
+      "variant": "mono",
+      "x": 1008,
+      "y": 485.1,
+      "w": 264,
+      "h": 153.01360325069908,
+      "rotation": 0,
+      "visible": true
+    },
+    {
+      "id": "layer-4",
+      "key": "book",
+      "variant": "mono",
+      "x": 216,
+      "y": 138.6,
+      "w": 264,
+      "h": 178.32477654997896,
+      "rotation": 0,
+      "visible": true
+    },
+    {
+      "id": "layer-1",
+      "key": "wallet",
+      "variant": "main",
+      "x": 456,
+      "y": 396.9,
+      "w": 600,
+      "h": 377.1849869396406,
+      "rotation": 0,
+      "visible": true
+    },
+    {
+      "id": "layer-2",
+      "key": "coin",
+      "variant": "main",
+      "x": 960,
+      "y": 302.4,
+      "w": 408.00000000000006,
+      "h": 268.2774545907385,
+      "rotation": 0,
+      "visible": true
+    },
+    {
+      "id": "layer-3",
+      "key": "flowers",
+      "variant": "main",
+      "x": 791.9999999999999,
+      "y": 189.7574445755598,
+      "w": 300,
+      "h": 379.5148891511196,
+      "rotation": 0,
+      "visible": true
+    }
+  ]
+}
