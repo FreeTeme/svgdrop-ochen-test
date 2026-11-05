@@ -7,7 +7,7 @@
   <meta name="description" content="Собирайте редактируемые векторные иллюстрации из библиотеки: по метафоре или выбранным объектам.">
   <title>SVG-drop — студия иллюстраций</title>
   <link rel="stylesheet" href="assets/fonts/manrope.css">
-  <link rel="stylesheet" href="styles.css?v=20261105-mobile">
+  <link rel="stylesheet" href="styles.css?v=20261105-object-strip-2">
 </head>
 <body data-mobile-panel="canvas">
 <a class="skip-link" href="#workspace">Перейти к холсту</a>
@@ -36,6 +36,11 @@
     <div class="canvas-stage"><div id="artboard" class="artboard"><svg id="canvas" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="group" aria-label="Редактируемая векторная композиция"></svg><div id="selection-box" class="selection-box" hidden><button class="resize-handle nw" data-handle="nw" aria-label="Изменить размер за верхний левый угол"></button><button class="resize-handle ne" data-handle="ne" aria-label="Изменить размер за верхний правый угол"></button><button class="resize-handle sw" data-handle="sw" aria-label="Изменить размер за нижний левый угол"></button><button class="resize-handle se" data-handle="se" aria-label="Изменить размер за нижний правый угол"></button><button class="rotate-handle" data-handle="rotate" aria-label="Повернуть объект" title="Потяните для поворота. Shift — шаг 15°"><span class="icon" style="--icon:url('assets/icons/rotate-cw.svg')" aria-hidden="true"></span></button></div><div id="object-toolbar" class="object-toolbar" role="toolbar" aria-label="Действия с выбранным объектом" hidden><button id="canvas-duplicate" class="icon-button" aria-label="Дублировать выбранный объект" title="Дублировать"><span class="icon" style="--icon:url('assets/icons/copy.svg')" aria-hidden="true"></span></button><button id="canvas-delete" class="icon-button danger" aria-label="Удалить объект с холста" title="Удалить"><span class="icon" style="--icon:url('assets/icons/trash-2.svg')" aria-hidden="true"></span></button></div></div></div>
     <div class="canvas-foot" id="canvas-foot"><span class="canvas-instruction"><span class="icon" style="--icon:url('assets/icons/move.svg')" aria-hidden="true"></span><span id="canvas-instruction">Перемещайте объекты на холсте</span></span><span id="layer-count">0 слоёв</span><button id="edit-selected" class="text-button" hidden>Настроить объект</button></div>
     <section class="examples"><div class="section-title"><h2>С чего начнём?</h2><span>Выберите готовую историю</span></div><div id="example-grid" class="example-grid"></div></section>
+    <section class="object-shelf" aria-labelledby="object-shelf-title">
+      <div class="section-title"><h2 id="object-shelf-title">Добавить объект</h2><div class="strip-navigation"><button id="strip-previous" class="icon-button" aria-label="Предыдущие объекты" disabled><span class="icon" style="--icon:url('assets/icons/arrow-left.svg')" aria-hidden="true"></span></button><button id="strip-next" class="icon-button" aria-label="Следующие объекты"><span class="icon" style="--icon:url('assets/icons/arrow-left.svg')" aria-hidden="true"></span></button></div></div>
+      <p id="object-strip-hint">Листайте вбок. Потяните вверх на холст или нажмите.</p>
+      <ul id="object-strip" class="object-strip" aria-label="Объекты для добавления на холст"></ul>
+    </section>
   </section>
   <aside class="inspector panel" id="settings-panel" aria-label="Настройки иллюстрации">
     <div class="inspector-heading"><span class="icon" style="--icon:url('assets/icons/sliders-horizontal.svg')" aria-hidden="true"></span><h2>Настройки</h2></div>
@@ -49,5 +54,5 @@
 <div id="toast" class="toast" role="status" hidden></div>
 <dialog id="help-dialog"><div class="dialog-head"><h2>От метафоры к иллюстрации</h2><button id="close-help" class="icon-button" aria-label="Закрыть"><span class="icon" style="--icon:url('assets/icons/x.svg')" aria-hidden="true"></span></button></div><p>Введите тему и соберите композицию или откройте «Из объектов»: нажмите на предмет либо перетащите его на холст. Каждый клик добавляет только выбранный предмет.</p><ol><li>Настройте формат, композицию и детализацию S или L.</li><li>Выберите палитру или загрузите свою в JSON.</li><li>Перемещайте объекты, тяните углы рамки для изменения размера и круглый маркер для поворота. Панель выбранного объекта позволяет сделать копию или удалить объект.</li><li>Скачайте SVG. Все объекты останутся векторными и редактируемыми.</li></ol><p>Подбор по метафоре работает по открытому словарю смыслов десяти объектов. Если тема неизвестна, сервис предложит базовую пару и сообщит об этом. Новые изображения не генерируются.</p><p class="hint">Стрелки двигают выделенный объект; Shift ускоряет движение. Delete удаляет. ⌘/Ctrl+D дублирует, ⌘/Ctrl+Z отменяет. Черновик сохраняется в этом браузере.</p><a href="README.html" target="_blank" rel="noopener">Архитектура и описание решения</a></dialog>
 <noscript><p>Для редактора нужен JavaScript. Исходные SVG доступны в папке assets проекта.</p></noscript>
-<script type="module" src="app.mjs?v=20261105-mobile"></script>
+<script type="module" src="app.mjs?v=20261105-object-strip-2"></script>
 </body></html>

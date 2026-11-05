@@ -230,7 +230,7 @@ dialog p { line-height: 1.8; }
   .panel, .workspace { min-height: 0; }
   .panel { max-width: 680px; margin: auto; overflow: visible; }
   body[data-mobile-panel=canvas] .library, body[data-mobile-panel=canvas] .inspector, body[data-mobile-panel=library] .workspace, body[data-mobile-panel=library] .inspector, body[data-mobile-panel=settings] .workspace, body[data-mobile-panel=settings] .library { display: none; }
-  .workspace { grid-template-rows: repeat(4, auto); align-content: start; }
+  .workspace { grid-template-rows: repeat(5, auto); align-content: start; }
   .workspace-top { margin-bottom: 14px; }
   .canvas-stage { padding: 14px 8px; }
   .canvas-foot { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 5px 10px; min-height: 34px; margin: 2px 0 12px; }
@@ -266,7 +266,7 @@ dialog p { line-height: 1.8; }
   .responsive-tools button { gap: 6px; min-height: 38px; font-size: 12px; padding: 7px; }
   .responsive-tools .icon { width: 16px; height: 16px; }
   .app { padding: 11px; }
-  .workspace { padding: 16px 12px 13px; border-radius: 14px; grid-template-rows: repeat(4, auto); }
+  .workspace { padding: 16px 12px 13px; border-radius: 14px; grid-template-rows: repeat(5, auto); }
   .workspace-symbol { display: none; }
   .workspace-top { gap: 7px; }
   .workspace-top h2 { font-size: 14px; }
@@ -372,3 +372,36 @@ dialog p { line-height: 1.8; }
   .resize-handle.se { right: -16px; bottom: -16px; }
   .object-toolbar .icon-button { width: 42px; min-height: 42px; }
 }
+
+/* A compact object shelf stays beside the canvas workflow on phones and tablets. */
+.object-shelf { display: none; }
+.strip-dragging { user-select: none; cursor: grabbing; }
+.strip-drag-preview { position: fixed; z-index: 40; width: 112px; padding: 12px 9px 8px; pointer-events: none; transform: translate(-50%, calc(-100% - 12px)); border: 1.5px solid var(--accent); border-radius: 13px; background: var(--panel); box-shadow: 0 12px 35px #30214830; text-align: center; }
+.strip-drag-preview img { display: block; width: 90px; height: 61px; object-fit: contain; margin: auto; }
+.strip-drag-preview span { display: block; margin-top: 7px; font-size: 10px; line-height: 1.4; color: var(--muted); }
+.strip-drag-preview[data-over=true] { background: var(--tint); }
+@media (max-width: 1100px) {
+  .object-shelf { display: block; min-width: 0; margin-top: 17px; padding-top: 14px; border-top: 1px solid var(--line-strong); }
+  .object-shelf .section-title { margin-bottom: 3px; }
+  .strip-navigation { display: flex; gap: 5px; }
+  .strip-navigation .icon-button { width: 34px; min-height: 34px; padding: 8px; border-color: var(--line-strong); }
+  #strip-next .icon { transform: rotate(180deg); }
+  #object-strip-hint { margin: 0 0 11px; color: var(--muted); font-size: var(--text-xs); }
+  .object-strip { display: flex; gap: 9px; list-style: none; min-width: 0; margin: 0; padding: 4px 3px 10px; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent; }
+  .object-strip li { flex: 0 0 100px; min-width: 0; }
+  .strip-object { display: flex; flex-direction: column; gap: 6px; position: relative; width: 100%; min-height: 106px; padding: 11px 7px 9px; border-radius: 11px; touch-action: pan-x pinch-zoom; cursor: grab; user-select: none; -webkit-touch-callout: none; }
+  .strip-object:active { transform: none; }
+  .strip-object img { display: block; width: 80px; height: 57px; object-fit: contain; pointer-events: none; }
+  .strip-object > span:not(.strip-plus) { font-size: 11px; font-weight: 550; }
+  .strip-plus { position: absolute; right: 5px; top: 5px; display: grid; place-items: center; width: 17px; height: 17px; border-radius: 5px; background: var(--tint); color: var(--accent); font-size: 15px; line-height: 1; }
+}
+@media (max-width: 580px) {
+  .object-shelf { margin-top: 14px; padding-top: 10px; }
+  .object-shelf h2 { font-size: 13px; }
+  .strip-navigation .icon-button { width: 38px; min-height: 38px; }
+  .object-strip li { flex-basis: 91px; }
+  .strip-object { min-height: 100px; }
+  .strip-object img { width: 73px; height: 52px; }
+}
+
+.strip-plus .icon { width: 11px; height: 11px; }

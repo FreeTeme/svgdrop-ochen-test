@@ -1,8 +1,10 @@
+import {setupObjectStrip} from './object-strip.mjs?v=20261105-shelf-2';
 import {resizeFromCorner, rotationFromPointer} from './transforms.mjs';
 import {enhanceSelects, syncSelects} from './selects.mjs';
 import {objects,palettes,formats,selectObjects,validatePalette,recolor,compose,exportSvg,escapeXml} from './core.mjs';
 const $=id=>document.getElementById(id);
 const icon=name=>`<span class="icon" style="--icon:url('assets/icons/${name}.svg')" aria-hidden="true"></span>`;
+const objectStrip=setupObjectStrip({items:objects,strip:$('object-strip'),board:$('artboard'),previous:$('strip-previous'),next:$('strip-next'),onAdd:(key,point)=>addObject(key,'main',point?canvasPoint(point):undefined)});
 function showPanel(panel){const focusFromContent=!!document.activeElement?.closest('main');document.body.dataset.mobilePanel=panel;document.querySelectorAll('[data-panel]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.panel===panel)));if(matchMedia('(max-width:1100px)').matches)window.scrollTo({top:0,behavior:'instant'});requestAnimationFrame(()=>{if(state)fitCanvas();if(focusFromContent&&matchMedia('(max-width:1100px)').matches){const target=$(panel==='canvas'?'workspace':panel==='library'?'library-panel':'settings-panel');target.tabIndex=-1;target.focus({preventScroll:true})}})}
 function preserveFocus(key){if(key)document.querySelector(`[data-focus-key="${key}"]`)?.focus({preventScroll:true})}
 let manifest=[],assets={},state,selected=null,mode='metaphor',undo=[],redo=[],drag=null,toastTimer,customPalettes=[],lastInspectorSelection=null;
@@ -86,7 +88,7 @@ function renderSettings(){const l=state.layers.find(l=>l.id===selected);$('objec
 function render(){
  $('format').value=state.format;$('detail').value=state.detail;$('layout').value=state.layout;$('background-objects').checked=state.backgroundObjects;$('texture').checked=state.texture;$('transparent').checked=state.transparent;
  const [W,H]=formats[state.format];$('dimensions').textContent=`${W} × ${H} px / ${state.detail}`;$('layer-count').textContent=`Слоёв: ${state.layers.length}`;$('undo').disabled=!undo.length;$('redo').disabled=!redo.length;$('export').disabled=!state.layers.some(l=>l.visible);$('variation').disabled=!state.layers.some(l=>l.variant==='main');
- renderCanvas();renderLayers();renderSettings();renderPalettes();renderChoices();syncSelects();
+ renderCanvas();renderLayers();renderSettings();renderPalettes();renderChoices();objectStrip.render(state.detail);syncSelects();
 }
 function selectedChange(fn){const l=state.layers.find(l=>l.id===selected);if(l)change(()=>fn(l))}
 function duplicate(){const l=state.layers.find(l=>l.id===selected);if(!l)return;if(state.layers.length>=50){toast('Лимит — 50 слоёв.');return}change(()=>{const copy={...l,id:crypto.randomUUID(),x:l.x+30,y:l.y+30};state.layers.push(copy);selected=copy.id})}
@@ -145,7 +147,7 @@ function normalizeRotation(deg){return ((deg+180)%360+360)%360-180}
 const board=$('artboard');board.addEventListener('dragover',e=>{if(!e.dataTransfer.types.includes('application/x-svgdrop-object'))return;e.preventDefault();e.dataTransfer.dropEffect='copy';board.classList.add('drop-active')});board.addEventListener('dragleave',e=>{if(!board.contains(e.relatedTarget))board.classList.remove('drop-active')});board.addEventListener('drop',e=>{e.preventDefault();board.classList.remove('drop-active');document.body.classList.remove('dragging-object');const key=e.dataTransfer.getData('application/x-svgdrop-object');if(objects.some(o=>o.key===key)){const p=canvasPoint(e),[W,H]=formats[state.format];addObject(key,'main',{x:Math.max(0,Math.min(W,p.x)),y:Math.max(0,Math.min(H,p.y))})}});
 $('canvas').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){const g=e.target.closest('[data-layer]');if(g){selected=g.dataset.layer;renderLayers();renderSettings();renderSelection();e.preventDefault()}}});
 document.addEventListener('keydown',e=>{
- if(e.target.closest('input,textarea,select,dialog,[role=tablist],.responsive-tools,[role=listbox],[role=combobox]')||!state)return;
+ if(e.target.closest('input,textarea,select,dialog,[role=tablist],.responsive-tools,[role=listbox],[role=combobox],.object-shelf')||!state)return;
  if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='z'){e.preventDefault();e.shiftKey?doRedo():doUndo();return}
  if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='d'){e.preventDefault();duplicate();return}
  if(e.key==='Escape'){deselect();return}if(!selected)return;
